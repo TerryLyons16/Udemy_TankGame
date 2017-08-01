@@ -5,6 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
+//Forward declaration
+class UTankBarrel;
+class UTankTurret;
+class UTankAimingComponent;
 
 UCLASS()
 class TANKGAME_API ATank : public APawn
@@ -19,13 +23,19 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY()
+		UTankAimingComponent* AimingComponent = nullptr;
+
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void AimAt(FVector target);
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Firing")
+		float LaunchSpeed = 4000.f;
 	
 };
